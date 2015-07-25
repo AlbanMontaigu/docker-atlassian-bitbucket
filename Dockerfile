@@ -26,7 +26,7 @@ MAINTAINER alban.montaigu@gmail.com
 # Configuration variables.
 ENV STASH_HOME="/var/local/atlassian/stash" \
     STASH_INSTALL="/usr/local/atlassian/stash" \
-    STASH_VERSION="3.10.0"
+    STASH_VERSION="3.11.1"
 
 
 # Base system update (isolated to not reproduce each time)
