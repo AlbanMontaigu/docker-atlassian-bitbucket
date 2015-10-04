@@ -5,7 +5,6 @@
 # Thanks to original project example : https://github.com/cptactionhank/docker-atlassian-stash
 #
 # @see https://www.atlassian.com/software/bitbucket/download
-# @see https://registry.hub.docker.com/u/atlassian/bitbucket/dockerfile/
 # @see https://confluence.atlassian.com/bitbucketserver/install-bitbucket-server-from-an-archive-file-776640148.html
 # @see https://confluence.atlassian.com/bitbucketserver/connecting-bitbucket-server-to-an-external-database-776640378.html
 # @see https://confluence.atlassian.com/bitbucketserver/connecting-bitbucket-server-to-postgresql-776640389.html
