@@ -1,16 +1,17 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
-# ATLASSIAN STASH STANDALONE SERVER
+# ATLASSIAN BITBUCKET STANDALONE SERVER
 #
-# Thanks to original project example : https://registry.hub.docker.com/u/cptactionhank/atlassian-stash/dockerfile/
+# Thanks to original project example : https://github.com/cptactionhank/docker-atlassian-stash
 #
-# @see https://registry.hub.docker.com/u/atlassian/stash/dockerfile/
-# @see https://confluence.atlassian.com/display/STASH/Install+Stash+from+an+archive+file
-# @see https://confluence.atlassian.com/display/STASH/Connecting+Stash+to+an+external+database
-# @see https://confluence.atlassian.com/display/STASH/Connecting+Stash+to+PostgreSQL
+# @see https://www.atlassian.com/software/bitbucket/download
+# @see https://registry.hub.docker.com/u/atlassian/bitbucket/dockerfile/
+# @see https://confluence.atlassian.com/bitbucketserver/install-bitbucket-server-from-an-archive-file-776640148.html
+# @see https://confluence.atlassian.com/bitbucketserver/connecting-bitbucket-server-to-an-external-database-776640378.html
+# @see https://confluence.atlassian.com/bitbucketserver/connecting-bitbucket-server-to-postgresql-776640389.html
 # @see https://jdbc.postgresql.org/download.html
-# @see https://confluence.atlassian.com/display/STASH/Supported+platforms
-# @see http://www.cyberciti.biz/faq/linux-unix-extracting-specific-files/
+# @see https://confluence.atlassian.com/bitbucketserver/supported-platforms-776640981.html
+# @see http://www.cyberciti.biz/faq/linux-unix-extracting-specific-files
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -24,9 +25,9 @@ MAINTAINER alban.montaigu@gmail.com
 
 
 # Configuration variables.
-ENV STASH_HOME="/var/local/atlassian/stash" \
-    STASH_INSTALL="/usr/local/atlassian/stash" \
-    STASH_VERSION="3.11.2"
+ENV BITBUCKET_HOME="/var/local/atlassian/bitbucket" \
+    BITBUCKET_INSTALL="/usr/local/atlassian/bitbucket" \
+    BITBUCKET_VERSION="4.0.2"
 
 
 # Base system update (isolated to not reproduce each time)
@@ -42,38 +43,38 @@ RUN set -x \
     && chmod +x /usr/local/bin/gosu
 
 
-# Install Atlassian stash and helper tools and setup initial home
+# Install Atlassian bitbucket and helper tools and setup initial home
 # directory structure (isolated to not reproduce each time).
 RUN set -x \
-    && mkdir -p                "${STASH_HOME}" \
-    && chmod -R 700            "${STASH_HOME}" \
-    && chown -R daemon:daemon  "${STASH_HOME}" \
-    && mkdir -p                "${STASH_INSTALL}/conf/Catalina" \
-    && curl -Ls                "https://downloads.atlassian.com/software/stash/downloads/atlassian-stash-${STASH_VERSION}.tar.gz" | tar -xz --directory "${STASH_INSTALL}" --strip-components=1 --no-same-owner \
-    && chmod -R 700            "${STASH_INSTALL}/conf" \
-    && chmod -R 700            "${STASH_INSTALL}/logs" \
-    && chmod -R 700            "${STASH_INSTALL}/temp" \
-    && chmod -R 700            "${STASH_INSTALL}/work" \
-    && chown -R daemon:daemon  "${STASH_INSTALL}/conf" \
-    && chown -R daemon:daemon  "${STASH_INSTALL}/logs" \
-    && chown -R daemon:daemon  "${STASH_INSTALL}/temp" \
-    && chown -R daemon:daemon  "${STASH_INSTALL}/work"
+    && mkdir -p                "${BITBUCKET_HOME}" \
+    && chmod -R 700            "${BITBUCKET_HOME}" \
+    && chown -R daemon:daemon  "${BITBUCKET_HOME}" \
+    && mkdir -p                "${BITBUCKET_INSTALL}/conf/Catalina" \
+    && curl -Ls                "https://downloads.atlassian.com/software/bitbucket/downloads/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz" | tar -xz --directory "${BITBUCKET_INSTALL}" --strip-components=1 --no-same-owner \
+    && chmod -R 700            "${BITBUCKET_INSTALL}/conf" \
+    && chmod -R 700            "${BITBUCKET_INSTALL}/logs" \
+    && chmod -R 700            "${BITBUCKET_INSTALL}/temp" \
+    && chmod -R 700            "${BITBUCKET_INSTALL}/work" \
+    && chown -R daemon:daemon  "${BITBUCKET_INSTALL}/conf" \
+    && chown -R daemon:daemon  "${BITBUCKET_INSTALL}/logs" \
+    && chown -R daemon:daemon  "${BITBUCKET_INSTALL}/temp" \
+    && chown -R daemon:daemon  "${BITBUCKET_INSTALL}/work"
 
 
-# Custom stash configuration (isolated to not reproduce each time)
+# Custom bitbucket configuration (isolated to not reproduce each time)
 RUN set -x \
-    && ln --symbolic          "/usr/lib/x86_64-linux-gnu/libtcnative-1.so" "${STASH_INSTALL}/lib/native/libtcnative-1.so" \
-    && sed --in-place         's/^# umask 0027$/umask 0027/g' "${STASH_INSTALL}/bin/setenv.sh" \
+    && ln --symbolic          "/usr/lib/x86_64-linux-gnu/libtcnative-1.so" "${BITBUCKET_INSTALL}/lib/native/libtcnative-1.so" \
+    && sed --in-place         's/^# umask 0027$/umask 0027/g' "${BITBUCKET_INSTALL}/bin/setenv.sh" \
     && xmlstarlet             ed --inplace \
         --delete              "Server/Service/Engine/Host/@xmlValidation" \
         --delete              "Server/Service/Engine/Host/@xmlNamespaceAware" \
-        --update               "Server/Service/Engine/Host/Context/@path" --value "/stash" \
-                              "${STASH_INSTALL}/conf/server.xml"
+        --update              "Server/Service/Engine/Host/Context/@path" --value "/bitbucket" \
+                              "${BITBUCKET_INSTALL}/conf/server.xml"
 
 
-# PostgreSQL connector for stash (isolated to not reproduce each time)
+# PostgreSQL connector for bitbucket (isolated to not reproduce each time)
 RUN set -x \
-    && curl -Ls -o ${STASH_INSTALL}/lib/postgresql-9.4-1201.jdbc41.jar https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar
+    && curl -Ls -o ${BITBUCKET_INSTALL}/lib/postgresql-9.4-1201.jdbc41.jar https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar
 
 
 # Use the default unprivileged account. This could be considered bad practice
@@ -89,12 +90,12 @@ EXPOSE 7990 7999
 # Set volume mount points for installation and home directory. Changes to the
 # home directory needs to be persisted as well as parts of the installation
 # directory due to eg. logs.
-VOLUME ["/var/local/atlassian/stash"]
+VOLUME ["/var/local/atlassian/bitbucket"]
 
 
 # Set the default working directory as the installation directory.
-WORKDIR ${STASH_INSTALL}
+WORKDIR ${BITBUCKET_INSTALL}
 
 
-# Run Atlassian stash as a foreground process by default.
-CMD ["./bin/start-stash.sh", "-fg"]
+# Run Atlassian bitbucket as a foreground process by default.
+CMD ["./bin/start-bitbucket.sh", "-fg"]
