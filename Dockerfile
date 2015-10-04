@@ -49,7 +49,7 @@ RUN set -x \
     && chmod -R 700            "${BITBUCKET_HOME}" \
     && chown -R daemon:daemon  "${BITBUCKET_HOME}" \
     && mkdir -p                "${BITBUCKET_INSTALL}/conf/Catalina" \
-    && curl -Ls                "https://downloads.atlassian.com/software/bitbucket/downloads/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz" | tar -xz --directory "${BITBUCKET_INSTALL}" --strip-components=1 --no-same-owner \
+    && curl -Ls                "https://downloads.atlassian.com/software/stash/downloads/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz" | tar -xz --directory "${BITBUCKET_INSTALL}" --strip-components=1 --no-same-owner \
     && chmod -R 700            "${BITBUCKET_INSTALL}/conf" \
     && chmod -R 700            "${BITBUCKET_INSTALL}/logs" \
     && chmod -R 700            "${BITBUCKET_INSTALL}/temp" \
