@@ -16,7 +16,7 @@
 
 
 # Base image
-FROM java:8
+FROM airdock/oracle-jdk:1.8
 
 
 # Maintainer
