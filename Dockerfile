@@ -26,7 +26,7 @@ MAINTAINER alban.montaigu@gmail.com
 # Configuration variables.
 ENV BITBUCKET_HOME="/var/local/atlassian/bitbucket" \
     BITBUCKET_INSTALL="/usr/local/atlassian/bitbucket" \
-    BITBUCKET_VERSION="4.2.0"
+    BITBUCKET_VERSION="4.3.2"
 
 
 # Base system update (isolated to not reproduce each time)
