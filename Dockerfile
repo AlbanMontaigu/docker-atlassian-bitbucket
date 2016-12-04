@@ -67,6 +67,7 @@ RUN set -x \
     && xmlstarlet             ed --inplace \
         --delete              "Server/Service/Engine/Host/@xmlValidation" \
         --delete              "Server/Service/Engine/Host/@xmlNamespaceAware" \
+        --update              "Server/Service/Engine/Host/Context/@path" --value "/bitbucket" \
                               "${BITBUCKET_INSTALL}/conf/server.xml"
 
 
