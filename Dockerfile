@@ -40,7 +40,7 @@ RUN set -x \
 
 # Bonus tools
 RUN set -x \
-    &&curl -o /usr/local/bin/gosu -sL "https://github.com/tianon/gosu/releases/download/1.2/gosu-$(dpkg --print-architecture)" \
+    && curl -o /usr/local/bin/gosu -sL "https://github.com/tianon/gosu/releases/download/1.10/gosu-$(dpkg --print-architecture)" \
     && chmod +x /usr/local/bin/gosu
 
 
