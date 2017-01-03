@@ -4,8 +4,7 @@
 - Apt list rm added to save space
 - Debian frontend non interactive added
 - Postgresql driver updated
-- Update to gosu 1.10
-- Fix download issue on gosu
+- No more gosu since it's already integrated in base image
 - Download archive process changed since the old one is now broken
 
 ## 4.11.2 (2016-12-03)

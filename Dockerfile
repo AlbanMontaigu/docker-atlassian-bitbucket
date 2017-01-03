@@ -38,12 +38,6 @@ RUN set -x \
     && rm -r /var/lib/apt/lists/*
 
 
-# Bonus tools
-RUN set -x \
-    && curl -o /usr/local/bin/gosu -ksL "https://github.com/tianon/gosu/releases/download/1.10/gosu-$(dpkg --print-architecture)" \
-    && chmod +x /usr/local/bin/gosu
-
-
 # Install Atlassian bitbucket and helper tools and setup initial home
 # directory structure (isolated to not reproduce each time).
 RUN set -x \
