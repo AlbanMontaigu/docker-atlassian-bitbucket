@@ -1,6 +1,7 @@
 
 ## 4.12.0 (2017-01-03)
 - Update to bitbucket 4.12.0
+- Apt list rm added to save space
 
 ## 4.11.2 (2016-12-03)
 - Update to bitbucket 4.11.2

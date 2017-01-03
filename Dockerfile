@@ -33,7 +33,8 @@ ENV BITBUCKET_HOME="/var/local/atlassian/bitbucket" \
 RUN set -x \
     && apt-get update --quiet \
     && apt-get install --quiet --yes --no-install-recommends libtcnative-1 git-core xmlstarlet \
-    && apt-get clean
+    && apt-get clean \
+    && rm -r /var/lib/apt/lists/*
 
 
 # Bonus tools
