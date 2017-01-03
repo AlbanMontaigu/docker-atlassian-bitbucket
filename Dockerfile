@@ -24,7 +24,8 @@ MAINTAINER alban.montaigu@gmail.com
 
 
 # Configuration variables.
-ENV BITBUCKET_HOME="/var/local/atlassian/bitbucket" \
+ENV DEBIAN_FRONTEND="noninteractive" \
+    BITBUCKET_HOME="/var/local/atlassian/bitbucket" \
     BITBUCKET_INSTALL="/usr/local/atlassian/bitbucket" \
     BITBUCKET_VERSION="4.12.0"
 
