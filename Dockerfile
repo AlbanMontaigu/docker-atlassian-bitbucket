@@ -33,7 +33,7 @@ ENV DEBIAN_FRONTEND="noninteractive" \
 # Base system update (isolated to not reproduce each time)
 RUN set -x \
     && apt-get update --quiet \
-    && apt-get install --quiet --yes --no-install-recommends libtcnative-1 git-core xmlstarlet \
+    && apt-get install --quiet --yes --no-install-recommends libtcnative-1 git-core xmlstarlet wget \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
 
@@ -51,7 +51,9 @@ RUN set -x \
     && chmod -R 700            "${BITBUCKET_HOME}" \
     && chown -R daemon:daemon  "${BITBUCKET_HOME}" \
     && mkdir -p                "${BITBUCKET_INSTALL}/conf/Catalina" \
-    && curl -Ls                "https://downloads.atlassian.com/software/stash/downloads/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz" | tar -xz --directory "${BITBUCKET_INSTALL}" --strip-components=1 --no-same-owner \
+    && wget -P /tmp --no-check-certificate "https://downloads.atlassian.com/software/stash/downloads/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz" -nv \
+    && tar xz -f "/tmp/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz" --directory "${BITBUCKET_INSTALL}" --strip-components=1 --no-same-owner \
+    && rm -rf "/tmp/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz" \
     && chmod -R 700            "${BITBUCKET_INSTALL}/conf" \
     && chmod -R 700            "${BITBUCKET_INSTALL}/logs" \
     && chmod -R 700            "${BITBUCKET_INSTALL}/temp" \
@@ -74,7 +76,7 @@ RUN set -x \
 
 # PostgreSQL connector for bitbucket (isolated to not reproduce each time)
 RUN set -x \
-    && curl -Ls -o ${BITBUCKET_INSTALL}/lib/postgresql-9.4-1202.jdbc41.jar https://jdbc.postgresql.org/download/postgresql-9.4-1202.jdbc41.jar
+    && wget -P "${BITBUCKET_INSTALL}/lib/postgresql-9.4-1202.jdbc41.jar" --no-check-certificate "https://jdbc.postgresql.org/download/postgresql-9.4-1202.jdbc41.jar" -nv
 
 
 # Use the default unprivileged account. This could be considered bad practice
