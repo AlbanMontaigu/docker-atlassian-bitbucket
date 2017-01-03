@@ -5,6 +5,7 @@
 - Debian frontend non interactive added
 - Postgresql driver updated
 - Update to gosu 1.10
+- Fix download issue on gosu
 
 ## 4.11.2 (2016-12-03)
 - Update to bitbucket 4.11.2
