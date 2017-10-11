@@ -2,6 +2,7 @@
 ## 5.4.1 (2017-10-11)
 - Update to bitbucket 5.4.1
 - MAINTAINER tag changed to LABEL in Dockerfile
+- Base image moved to openjdk alpine
 
 ## 4.12.1 (2017-01-07)
 - Update to bitbucket 4.12.1
