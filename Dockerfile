@@ -32,7 +32,7 @@ RUN apk --no-cache add git xmlstarlet wget tomcat-native ca-certificates curl op
     && chown -R daemon:daemon  "${BITBUCKET_INSTALL}" \
 
 # Custom bitbucket configuration
-    && ln --symbolic "/usr/lib/libtcnative-1.so" "${BITBUCKET_INSTALL}/lib/native/libtcnative-1.so" \
+    && ln -s "/usr/lib/libtcnative-1.so" "${BITBUCKET_INSTALL}/lib/native/libtcnative-1.so" \
     && sed --in-place 's/^# umask 0027$/umask 0027/g' "${BITBUCKET_INSTALL}/bin/setenv.sh" \
     && xmlstarlet ed --inplace \
         --delete "Server/Service/Engine/Host/@xmlValidation" \
