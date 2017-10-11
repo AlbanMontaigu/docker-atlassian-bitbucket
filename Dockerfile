@@ -23,21 +23,22 @@ RUN apk --no-cache add git xmlstarlet wget tomcat-native ca-certificates curl op
                    bash procps openssl perl ttf-dejavu tini \
 
 # Install Atlassian bitbucket and helper tools and setup initial home directory structure
-    && mkdir -p                "${BITBUCKET_HOME}" \
-    && chown -R daemon:daemon  "${BITBUCKET_HOME}" \
+    && mkdir -p "${BITBUCKET_HOME}" \
+    && chown -R daemon:daemon "${BITBUCKET_HOME}" \
+    && mkdir -p "${BITBUCKET_INSTALL}" \
     && wget -P /tmp --no-check-certificate "https://downloads.atlassian.com/software/stash/downloads/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz" -nv \
     && tar xz -f "/tmp/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz" --directory "${BITBUCKET_INSTALL}" --strip-components=1 --no-same-owner \
     && rm -rf "/tmp/atlassian-bitbucket-${BITBUCKET_VERSION}.tar.gz" \
     && chown -R daemon:daemon  "${BITBUCKET_INSTALL}" \
 
 # Custom bitbucket configuration
-    && ln --symbolic          "/usr/lib/libtcnative-1.so" "${BITBUCKET_INSTALL}/lib/native/libtcnative-1.so" \
-    && sed --in-place         's/^# umask 0027$/umask 0027/g' "${BITBUCKET_INSTALL}/bin/setenv.sh" \
-    && xmlstarlet             ed --inplace \
-        --delete              "Server/Service/Engine/Host/@xmlValidation" \
-        --delete              "Server/Service/Engine/Host/@xmlNamespaceAware" \
-                              "${BITBUCKET_INSTALL}/conf/server.xml" \
-    && touch -d "@0"          "${BITBUCKET_INSTALL}/conf/server.xml"
+    && ln --symbolic "/usr/lib/libtcnative-1.so" "${BITBUCKET_INSTALL}/lib/native/libtcnative-1.so" \
+    && sed --in-place 's/^# umask 0027$/umask 0027/g' "${BITBUCKET_INSTALL}/bin/setenv.sh" \
+    && xmlstarlet ed --inplace \
+        --delete "Server/Service/Engine/Host/@xmlValidation" \
+        --delete "Server/Service/Engine/Host/@xmlNamespaceAware" \
+                 "${BITBUCKET_INSTALL}/conf/server.xml" \
+    && touch -d "@0" "${BITBUCKET_INSTALL}/conf/server.xml"
 
 # Use the default unprivileged account. This could be considered bad practice
 # on systems where multiple processes end up being executed by 'daemon' but
