@@ -27,7 +27,7 @@ MAINTAINER alban.montaigu@gmail.com
 ENV DEBIAN_FRONTEND="noninteractive" \
     BITBUCKET_HOME="/var/local/atlassian/bitbucket" \
     BITBUCKET_INSTALL="/usr/local/atlassian/bitbucket" \
-    BITBUCKET_VERSION="4.12.1"
+    BITBUCKET_VERSION="5.4.1"
 
 
 # Base system update (isolated to not reproduce each time)
