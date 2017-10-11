@@ -20,7 +20,7 @@ FROM airdock/oracle-jdk:1.8
 
 
 # Maintainer
-MAINTAINER alban.montaigu@gmail.com
+LABEL maintainer="alban.montaigu@gmail.com"
 
 
 # Configuration variables.
